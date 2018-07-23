@@ -1,6 +1,6 @@
 {
   "name": "code-lightner",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Use TextMate grammar and themes to highlights your code",
   "main": "release/Main.js",
   "typings": "./typings/main.d.ts",

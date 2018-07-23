@@ -18,13 +18,13 @@ let config =
         backgroundColor: "#282c34",
         textColor: "#bbbbbbff",
         grammarFiles: [
-            "../tests/syntaxes/JavaScript.tmLanguage.json",
-            "../tests/syntaxes/SQL.plist",
-            "../tests/syntaxes/hello.json",
-            "../tests/syntaxes/fsharp.json"
+            "./syntaxes/JavaScript.tmLanguage.json",
+            "./syntaxes/SQL.plist",
+            "./syntaxes/hello.json",
+            "./syntaxes/fsharp.json"
         ],
         scopeName: "source.fsharp",
-        themeFile: "../tests/themes/OneDark-Pro.json"
+        themeFile: "./themes/OneDark-Pro.json"
     }
 
 code.lighten(config, sourceCode)

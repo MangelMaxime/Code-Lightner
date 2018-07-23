@@ -52,7 +52,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const colors = _safe2.default;
 
 function resolve(path) {
-  const segments = [__dirname, path];
+  const segments = [process.cwd(), path];
   return path_1.resolve(...segments);
 }
 
@@ -171,6 +171,7 @@ function loadGrammars(files) {
 }
 
 function lighten(config, code) {
+  console.log(colors.grey("CWD: " + process.cwd()));
   return function (builder_) {
     return builder_.Delay(function () {
       return loadGrammars(config.grammarFiles).then(function (_arg1) {

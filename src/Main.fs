@@ -12,7 +12,7 @@ let private colors = ColorJS.safe
 
 let private resolve (path : string) =
     let segments =
-        [| Node.__dirname
+        [| Node.``process``.cwd()
            path
         |]
         |> ResizeArray
@@ -146,6 +146,7 @@ let private loadGrammars (files : string list) =
     }
 
 let lighten (config : CodeToHtmlConfig) (code : string) =
+    JS.console.log(colors.grey.Invoke("CWD: " + Node.``process``.cwd()))
     promise {
         let! grammars = loadGrammars config.grammarFiles
 
