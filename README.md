@@ -31,10 +31,10 @@ let config =
         backgroundColor: "#282c34", // Optional, set the background color of the pre element
         textColor: "#bbbbbbff", // Optional, set the color of the text
         grammarFiles: [ // Required, list of the grammar file to load
-            "../syntaxes/JavaScript.tmLanguage.json",
-            "../syntaxes/SQL.plist",
-            "../syntaxes/hello.json",
-            "../syntaxes/fsharp.json"
+            "./syntaxes/JavaScript.tmLanguage.json",
+            "./syntaxes/SQL.plist",
+            "./syntaxes/hello.json",
+            "./syntaxes/fsharp.json"
         ],
         scopeName: "source.fsharp", // Required, name of the scope to use on the provided code
         themeFile: "../themes/OneDark-Pro.json" // Required, path of the theme file
