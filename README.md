@@ -1,35 +1,51 @@
-# Fulma minimal template
+# Code Lightner
 
-This template setup a minimal application using [Fable](http://fable.io/), [Elmish](https://fable-elmish.github.io/) and [Fulma](https://mangelmaxime.github.io/Fulma/).
+:warning: *Current version of `code-lightner` only support Node.js.Browser support will be added later.* :warning:
 
-## How to use ?
+### JavaScript version
 
-### Architecture
+## Installing
 
-- Entry point of your application is `src/App.fs`
-- We are using [hmtl-webpack-plugin](https://github.com/jantimon/html-webpack-plugin) to make `src/index.html` the entry point of the website
-- Entry point of your style is `src/scss/main.scss`
-    - [Bulma](https://bulma.io/) and [Font Awesome](https://fontawesome.com/) are already included
-    - We are supporting both `scss` and `sass` (by default we use `scss`)
-- Static assets (favicon, images, etc.) should be placed in the `static` folder
+`npm install code-lightner`
 
-### In development mode
+## Using
 
-*If you are using Windows replace `./fake.sh` by `fake.cmd`*
+```js
+const code = require('code-lightner');
 
-1. Run: `./fake.sh build -t Watch`
-2. Go to [http://localhost:8080/](http://localhost:8080/)
+const sourceCode =
+    `
+module Test
 
-*On Unix you may need to run `chmod a+x fake.sh`*
+[<RequireQualifiedAccess>]
+type FontStyle =
+    | NotSet = -1
+    | None = 0
+    | Italic = 1
+    | Bold = 2
+    | Underline = 4
+    `
 
-In development mode, we activate:
+let config =
+    {
+        backgroundColor: "#282c34", // Optional, set the background color of the pre element
+        textColor: "#bbbbbbff", // Optional, set the color of the text
+        grammarFiles: [ // Required, list of the grammar file to load
+            "../syntaxes/JavaScript.tmLanguage.json",
+            "../syntaxes/SQL.plist",
+            "../syntaxes/hello.json",
+            "../syntaxes/fsharp.json"
+        ],
+        scopeName: "source.fsharp", // Required, name of the scope to use on the provided code
+        themeFile: "../themes/OneDark-Pro.json" // Required, path of the theme file
+    };
 
-- [Hot Module Replacement](https://fable-elmish.github.io/hmr/), modify your code and see the change on the fly
-- [Redux debugger](https://fable-elmish.github.io/debugger/), allow you to debug each message in your application using [Redux dev tool](https://github.com/reduxjs/redux-devtools)
+code.lighten(config, sourceCode)
+    .then(function(html) {
+        console.log(html);
+    });
+```
 
-### Build for production
+### Fable version
 
-*If you are using Windows replace `./fake.sh` by `fake.cmd`*
-
-1. Run: `./fake.sh build`
-2. All the files needed for deployment are under the `output` folder.
+**Coming soon**

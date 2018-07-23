@@ -1,4 +1,4 @@
-module App.View
+module CodeLightner
 
 open Fable.Core
 open Fable.Core.JsInterop
@@ -8,7 +8,7 @@ open Fable.Import
 open System
 open Helpers
 
-let colors = ColorJS.safe
+let private colors = ColorJS.safe
 
 let private resolve (path : string) =
     let segments =
@@ -29,7 +29,7 @@ let private loadThemeFile (filename : string) =
             ``fast-plist``.parse(content)
         |> Some
     else
-        JS.console.error(colors.yellow.Invoke("Theme file not found: " + filePath))
+        JS.console.warn(colors.yellow.Invoke("Theme file not found: " + filePath))
         None
 
 [<RequireQualifiedAccess>]
@@ -47,9 +47,9 @@ type StackElementMetadata =
     abstract getForeground : metadata : float -> int
     abstract getBackground : metadata : float -> int
 
-let private tokenMetadataDecoder : StackElementMetadata = import "StackElementMetadata" "./helpers.js"
+let private tokenMetadataDecoder : StackElementMetadata = import "StackElementMetadata" "./js/helpers.js"
 
-let private escapeHtml (_ : string) : string = import "escapeHtml" "./helpers.js"
+let private escapeHtml (_ : string) : string = import "escapeHtml" "./js/helpers.js"
 
 let private getInlineStyleFromMetadata (metadata : float) (colorMap :  ResizeArray<string>) : string =
     let foreground = tokenMetadataDecoder.getForeground(metadata)
@@ -130,7 +130,7 @@ let private toInlineStyle (propertyName : string) (optionalValue : string option
     | Some color -> propertyName + ": " + color
     | None -> ""
 
-let loadGrammars (files : string list) =
+let private loadGrammars (files : string list) =
     promise {
         let mapScopeName (map : Map<string, string>) (file : string) =
             let filePath = resolve file
@@ -145,7 +145,7 @@ let loadGrammars (files : string list) =
         return List.fold mapScopeName Map.empty files
     }
 
-let codeToHtml (config : CodeToHtmlConfig) (code : string) =
+let lighten (config : CodeToHtmlConfig) (code : string) =
     promise {
         let! grammars = loadGrammars config.grammarFiles
 

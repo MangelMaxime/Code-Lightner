@@ -1,7 +1,6 @@
-const codeLightner = require('./../output/App');
+const code = require('./../output/Main');
 
-
-const code =
+const sourceCode =
     `
     module Test
 
@@ -19,16 +18,16 @@ let config =
         backgroundColor: "#282c34",
         textColor: "#bbbbbbff",
         grammarFiles: [
-            "../syntaxes/JavaScript.tmLanguage.json",
-            "../syntaxes/SQL.plist",
-            "../syntaxes/hello.json",
-            "../syntaxes/fsharp.json"
+            "../tests/syntaxes/JavaScript.tmLanguage.json",
+            "../tests/syntaxes/SQL.plist",
+            "../tests/syntaxes/hello.json",
+            "../tests/syntaxes/fsharp.json"
         ],
         scopeName: "source.fsharp",
-        themeFile: "../themes/OneDark-Pro.json"
+        themeFile: "../tests/themes/OneDark-Pro.json"
     }
 
-codeLightner.codeToHtml(config, code)
+code.lighten(config, sourceCode)
     .then(function(html) {
         console.log(html);
     });

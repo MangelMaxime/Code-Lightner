@@ -20,21 +20,11 @@ Target.create "Clean" (fun _ ->
 Target.create "Install" (fun _ ->
     DotNet.restore
         (DotNet.Options.withWorkingDirectory __SOURCE_DIRECTORY__)
-        "code_lightner.sln"
+        "src/code_lightner.fsproj"
 )
 
 Target.create "YarnInstall" (fun _ ->
     Yarn.install id
-)
-
-Target.create "Build" (fun _ ->
-    let result =
-        DotNet.exec
-            (DotNet.Options.withWorkingDirectory __SOURCE_DIRECTORY__)
-            "fable"
-            "webpack --port free -- -p"
-
-    if not result.OK then failwithf "dotnet fable failed with code %i" result.ExitCode
 )
 
 Target.create "Watch" (fun _ ->
@@ -42,19 +32,43 @@ Target.create "Watch" (fun _ ->
         DotNet.exec
             (DotNet.Options.withWorkingDirectory __SOURCE_DIRECTORY__)
             "fable"
-            "webpack-dev-server --port free"
+            "yarn-run fable-splitter --port free -- --config src/splitter.config.js -w"
 
     if not result.OK then failwithf "dotnet fable failed with code %i" result.ExitCode
+)
+
+Target.create "Test" (fun _ ->
+    ()
+)
+
+Target.create "Release.Npm" (fun _ ->
+    Shell.cleanDir "release"
+
+    let result =
+        DotNet.exec
+            (DotNet.Options.withWorkingDirectory __SOURCE_DIRECTORY__)
+            "fable"
+            "yarn-run fable-splitter --port free -- --config src/splitter.config.js -o release"
+
+    if not result.OK then failwithf "dotnet fable failed with code %i" result.ExitCode
+)
+
+Target.create "Release.Fable" (fun _ ->
+    Yarn.exec
+        "rollup output/App.js --file release/main.js --format cjs"
+        (fun o ->
+           { o with WorkingDirectory = __SOURCE_DIRECTORY__ }
+        )
 )
 
 // Build order
 "Clean"
     ==> "Install"
     ==> "YarnInstall"
-    ==> "Build"
+    ==> "Release.Npm"
 
 "Watch"
     <== [ "YarnInstall" ]
 
 // start build
-Target.runOrDefault "Build"
+Target.runOrDefault "Test"
