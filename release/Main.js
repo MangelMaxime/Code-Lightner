@@ -57,11 +57,16 @@ function resolve(path) {
 }
 
 function loadThemeFile(filename) {
+  var theme;
+  var tokenColors;
   const filePath = resolve(filename);
 
   if (fs.existsSync(filePath)) {
     const content = fs.readFileSync(resolve(filename), (0, _Option.makeSome)(null)).toString();
-    return path_1.extname(filename) === ".json" ? JSON.parse(content) : fast_plist.parse(content);
+    return path_1.extname(filename) === ".json" ? (theme = JSON.parse(content), tokenColors = theme.tokenColors, !(tokenColors == null) ? {
+      settings: theme.tokenColors,
+      name: theme.name
+    } : theme) : fast_plist.parse(content);
   } else {
     console.warn(colors.yellow("Theme file not found: " + filePath));
     return null;

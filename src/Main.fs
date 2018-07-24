@@ -24,7 +24,15 @@ let private loadThemeFile (filename : string) =
         let content = Node.fs.readFileSync(unbox<U2<Node.Fs.PathLike,float>> (resolve filename), Some null).toString()
 
         if Node.path.extname filename = ".json" then
-            JS.JSON.parse(content) :?> IRawTheme
+            let theme : obj = JS.JSON.parse(content)
+            let tokenColors = theme?tokenColors |> box
+            if not (isNull tokenColors) then
+                jsOptions<IRawTheme>(fun o ->
+                    o.name <- Some !!theme?name
+                    o.settings <- !!theme?tokenColors
+                )
+            else
+                theme :?> IRawTheme
         else
             ``fast-plist``.parse(content)
         |> Some

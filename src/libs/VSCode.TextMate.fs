@@ -24,8 +24,8 @@ type [<AllowNullLiteral>] IRawThemeSetting =
 
 /// A TextMate theme.
 type [<AllowNullLiteral>] IRawTheme =
-    abstract name: string option
-    abstract settings: ResizeArray<IRawThemeSetting>
+    abstract name: string option with get, set
+    abstract settings: ResizeArray<IRawThemeSetting> with get, set
 
 type [<AllowNullLiteral>] Thenable<'T> =
     inherit PromiseLike<'T>

@@ -2,15 +2,31 @@ const code = require('./../output/Main');
 
 const sourceCode =
     `
-    module Test
+    open Thoth.Json.Encode
 
-    [<RequireQualifiedAccess>]
-    type FontStyle =
-        | NotSet = -1
-        | None = 0
-        | Italic = 1
-        | Bold = 2
-        | Underline = 4
+    let person =
+        object
+            [ "firstname", string "maxime"
+              "surname", string "mangel"
+              "age", int 25
+              "address", object
+                            [ "street", string "main street"
+                              "city", string "Bordeaux" ]
+            ]
+
+    let compact = encode 0 person
+    // {"firstname":"maxime","surname":"mangel","age":25,"address":{"street":"main street","city":"Bordeaux"}}
+
+    let readable = encode 4 person
+    // {
+    //     "firstname": "maxime",
+    //     "surname": "mangel",
+    //     "age": 25,
+    //     "address": {
+    //         "street": "main street",
+    //         "city": "Bordeaux"
+    //     }
+    // }
     `
 
 let config =

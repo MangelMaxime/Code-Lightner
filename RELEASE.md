@@ -1,3 +1,7 @@
+### 0.2.1
+
+* Detect if the theme is using `tokenColors` instead of `settings` and convert it
+
 ### 0.2.0
 
 * Paths are now relative to the current working directory of the Node.js process

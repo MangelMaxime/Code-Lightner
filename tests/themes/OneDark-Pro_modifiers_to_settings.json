@@ -82,7 +82,7 @@
       "titleBar.inactiveBackground": "#21252B",
       "titleBar.inactiveForeground": "#6B717D"
     },
-    "tokenColors": [
+    "settings": [
       {
         "name": "support.constant.edge",
         "scope": "support.constant.edge",

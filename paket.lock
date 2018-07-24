@@ -17,7 +17,7 @@ NUGET
       Microsoft.NETCore.Platforms (>= 1.1)
 GITHUB
   remote: fable-compiler/ts2fable-exports
-    Node.fs (26778961058648e51bf47e087d6682341dfff37f)
+    Node.fs (1dbbe432cf3210ae92f6f7f9576bec0c6f3ea843)
 GROUP netcorebuild
 STORAGE: NONE
 RESTRICTION: == netstandard2.0
