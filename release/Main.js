@@ -176,7 +176,6 @@ function loadGrammars(files) {
 }
 
 function lighten(config, code) {
-  console.log(colors.grey("CWD: " + process.cwd()));
   return function (builder_) {
     return builder_.Delay(function () {
       return loadGrammars(config.grammarFiles).then(function (_arg1) {

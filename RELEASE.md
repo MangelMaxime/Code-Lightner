@@ -1,3 +1,7 @@
+### 0.3.0
+
+* Remove the `CWD` logger because it makes the console really noisy
+
 ### 0.2.1
 
 * Detect if the theme is using `tokenColors` instead of `settings` and convert it

@@ -154,7 +154,6 @@ let private loadGrammars (files : string list) =
     }
 
 let lighten (config : CodeToHtmlConfig) (code : string) =
-    JS.console.log(colors.grey.Invoke("CWD: " + Node.``process``.cwd()))
     promise {
         let! grammars = loadGrammars config.grammarFiles
 
